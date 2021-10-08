@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class TokenManager implements ITokenManager {
+public class TokenManager  {
 
 	Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 	private static final int validity = 5 * 60 *1000;

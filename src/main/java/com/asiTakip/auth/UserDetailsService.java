@@ -6,35 +6,42 @@ import java.util.ArrayList;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.config.authentication.UserServiceBeanDefinitionParser;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import com.asiTakip.repository.UserRepository;
 @Service
 public class UserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService {
 
 	
-	private Map<String, String> users = new HashMap<>();
-	@Autowired
-	private BCryptPasswordEncoder passwordEncoder;
-	@PostConstruct
-	public void init() {
-
-		users.put("temelt", passwordEncoder.encode("123"));
-		System.out.println("usrname " +users);
-	}
 	
-
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;	
+	@Autowired
+	private UserRepository userRepository;
+ 
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		
-		if(users.containsKey(username)) {
+
+	   try {
 			
-			return new User(username,users.get("username"),new ArrayList<>());
+			
+			String hashPas = userRepository.findByUsername(username).getPassword();
+			
+			return new User(username,hashPas,true,true,true,true,AuthorityUtils.NO_AUTHORITIES);
 		}
-		throw new UsernameNotFoundException(username);
+		catch(UsernameNotFoundException exception)
+		{
+			throw new UsernameNotFoundException(username);}
+		
+		
+		
 	}
 
 }
