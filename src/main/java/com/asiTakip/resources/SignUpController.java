@@ -36,9 +36,17 @@ public class SignUpController {
 
 	@RequestMapping(method=RequestMethod.POST)
 	public String SignUp(@RequestBody UserRequest userRequest) {
-        userRequest.setPassword(bCryptPasswordEncoder.encode(userRequest.getPassword()));
-		return userManager.saveUser(userRequest);	
-		
+        try {
+		userRequest.setPassword(bCryptPasswordEncoder.encode(userRequest.getPassword()));
+        }
+        catch(Exception e) {
+
+            e.printStackTrace();
+
+            
+     }
+        
+        return userManager.saveUser(userRequest);	
 	}
 	
 	
