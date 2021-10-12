@@ -2,6 +2,9 @@ package com.asiTakip.models;
 
 
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Getter;
@@ -14,6 +17,8 @@ import lombok.ToString;
 
 @Document(collection = "users")
 public class User {
+	
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
 	private String username;
 	private String password;
