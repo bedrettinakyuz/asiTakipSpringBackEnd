@@ -1,6 +1,8 @@
 package com.asiTakip.resources;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.asiTakip.Request.LoginRequest;
+import com.asiTakip.Responses.LoginResponse;
 import com.asiTakip.auth.TokenManager;
 
 
@@ -33,14 +36,17 @@ public class AuthController {
 	
 
 	@PostMapping
-	public ResponseEntity<String> Login(@RequestBody LoginRequest loginRequest){
+	public ResponseEntity<LoginResponse> Login(@RequestBody LoginRequest loginRequest){
 	
 		try {
 		
 			authenticationManager.authenticate(
 					new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 			
-			return ResponseEntity.ok(tokenManager.generateToken(loginRequest.getUsername()));
+			//return ResponseEntity.ok(.status(200);
+			
+			return new ResponseEntity<LoginResponse>(new LoginResponse(200,"OK",tokenManager.generateToken(loginRequest.getUsername())),HttpStatus.OK) 	;	
+					
 		}
 
 		catch(Exception e){
