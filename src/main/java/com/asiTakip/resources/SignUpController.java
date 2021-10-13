@@ -41,7 +41,7 @@ public class SignUpController {
 	@RequestMapping(method=RequestMethod.POST)
 	public String SignUp(@RequestBody UserRequest userRequest) {
         try {
-        userRequest.setId(sequenceGeneratorService.getSequenceNumber(com.asiTakip.models.User.SEQUENCE_NAME));	
+        userRequest.setId(sequenceGeneratorService.getSequenceNumber("uid_sequence"));	
 		userRequest.setPassword(bCryptPasswordEncoder.encode(userRequest.getPassword()));
         }
         catch(Exception e) {
