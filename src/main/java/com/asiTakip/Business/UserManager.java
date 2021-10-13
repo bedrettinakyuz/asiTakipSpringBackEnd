@@ -19,7 +19,7 @@ public class UserManager implements IUserManager {
 		
 		if(!userRepository.existsById(userRequest.getId())) {
 			
-			//userRequest.setPassword(bCryptPasswordEncoder.encode(userRequest.getPassword()));
+			
 			userRepository.save(userRequest);
 			return "User saved with id : " + userRequest.getId();
 		}

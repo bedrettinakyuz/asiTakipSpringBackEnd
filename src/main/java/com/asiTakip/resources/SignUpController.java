@@ -9,9 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.asiTakip.Business.IUserManager;
 import com.asiTakip.Request.UserRequest;
+import com.asiTakip.Service.SequenceGeneratorService;
 
 import org.springframework.web.bind.annotation.RequestMethod;
-
+import com.asiTakip.models.User;
 
 
 @RestController
@@ -24,6 +25,9 @@ public class SignUpController {
 	
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
+	private SequenceGeneratorService sequenceGeneratorService;
 	
 	@Autowired
 	public SignUpController(IUserManager userManager) {
@@ -37,6 +41,7 @@ public class SignUpController {
 	@RequestMapping(method=RequestMethod.POST)
 	public String SignUp(@RequestBody UserRequest userRequest) {
         try {
+        userRequest.setId(sequenceGeneratorService.getSequenceNumber(com.asiTakip.models.User.SEQUENCE_NAME));	
 		userRequest.setPassword(bCryptPasswordEncoder.encode(userRequest.getPassword()));
         }
         catch(Exception e) {

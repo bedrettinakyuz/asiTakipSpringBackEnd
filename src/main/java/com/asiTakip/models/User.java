@@ -2,9 +2,13 @@ package com.asiTakip.models;
 
 
 
+
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Getter;
@@ -18,7 +22,10 @@ import lombok.ToString;
 @Document(collection = "users")
 public class User {
 	
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Transient
+	public static final String SEQUENCE_NAME = "uid_sequence";
+	
+	@Id
     private Integer id;
 	private String username;
 	private String password;
