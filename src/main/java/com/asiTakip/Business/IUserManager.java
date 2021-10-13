@@ -2,11 +2,12 @@ package com.asiTakip.Business;
 
 
 
-import com.asiTakip.Request.UserRequest;
+
+import com.asiTakip.models.User;
 
 public interface IUserManager {
 
-	String saveUser(UserRequest userRequest);
+	String saveUser(User user);
 	
 	Integer getUserID(String username);
 }

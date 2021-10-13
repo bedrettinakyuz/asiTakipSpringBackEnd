@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import com.asiTakip.models.User;
 import com.asiTakip.Request.UserRequest;
 @Repository
-public interface UserRepository extends MongoRepository<UserRequest,Integer> {
+public interface UserRepository extends MongoRepository<User,Integer> {
 
- public UserRequest findByUsername(String username);
+ public User findByUsername(String username);
 }

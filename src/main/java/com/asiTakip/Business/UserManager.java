@@ -5,6 +5,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.asiTakip.Request.UserRequest;
+import com.asiTakip.models.User;
 import com.asiTakip.repository.UserRepository;
 @Service
 public class UserManager implements IUserManager {
@@ -15,15 +16,15 @@ public class UserManager implements IUserManager {
 
 
 	@Override
-	public String saveUser(UserRequest userRequest) {
+	public String saveUser(User user) {
 		
-		if(!userRepository.existsById(userRequest.getId())) {
+		if(!userRepository.existsById(user.getId())) {
 			
 			
-			userRepository.save(userRequest);
-			return "User saved with id : " + userRequest.getId();
+			userRepository.save(user);
+			return "User saved with id : " + user.getId();
 		}
-		return "User already existing with that  id" + userRequest.getId();
+		return "User already existing with that  id" + user.getId();
 		
 	}
 

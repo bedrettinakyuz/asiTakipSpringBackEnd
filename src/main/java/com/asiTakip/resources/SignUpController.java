@@ -39,10 +39,10 @@ public class SignUpController {
 
 
 	@RequestMapping(method=RequestMethod.POST)
-	public String SignUp(@RequestBody UserRequest userRequest) {
+	public String SignUp(@RequestBody User user) {
         try {
-        userRequest.setId(sequenceGeneratorService.getSequenceNumber("uid_sequence"));	
-		userRequest.setPassword(bCryptPasswordEncoder.encode(userRequest.getPassword()));
+        	user.setId(sequenceGeneratorService.getSequenceNumber(User.SEQUENCE_NAME));	
+        	user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         }
         catch(Exception e) {
 
@@ -51,12 +51,12 @@ public class SignUpController {
             
      }
         
-        return userManager.saveUser(userRequest);	
+        return userManager.saveUser(user);	
 	}
-	
+}
 	
 	
 	
 
 	
-}
+

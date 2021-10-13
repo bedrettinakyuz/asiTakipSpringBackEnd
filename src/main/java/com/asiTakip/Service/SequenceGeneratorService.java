@@ -21,7 +21,7 @@ public class SequenceGeneratorService {
 	public int getSequenceNumber(String sequenceName) {
 		
 		Query query = new Query(Criteria.where("id").is(sequenceName));
-		Update update = new Update().inc("seq",1);
+		Update update = new Update().inc("seqNo",1);
 		UserSequence counter = mongoOperations
 				.findAndModify(query, update, options().returnNew(true).upsert(true),
 						UserSequence.class);

@@ -45,7 +45,7 @@ public class VaccineController {
 	}
 	@Transactional
 	@GetMapping("/findAllVaccines/{username}")
-	public UserRequest getVaccineById(@PathVariable String username){
+	public User getVaccineById(@PathVariable String username){
 		
 		return userRepository.findByUsername(username);
 	}
