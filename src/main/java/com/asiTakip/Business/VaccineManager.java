@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.asiTakip.repository.VaccineRepository;
+import com.asiTakip.DAL.IVaccineDAL;
 import com.asiTakip.models.*;
 @Service
 public class VaccineManager implements IVaccineManager {
@@ -14,6 +15,8 @@ public class VaccineManager implements IVaccineManager {
 	@Autowired
 	private VaccineRepository repository;
 
+	@Autowired
+	private IVaccineDAL vaccineDal;
 	
 
 	@Override
@@ -35,9 +38,9 @@ public class VaccineManager implements IVaccineManager {
 
 
 	@Override
-	public List<Vaccine> getVaccines() {
+	public Optional<List<Vaccine>> getVaccines(Integer id) {
 		
-		return repository.findAll();
+		return vaccineDal.getVaccines(id);
 	}
 
 

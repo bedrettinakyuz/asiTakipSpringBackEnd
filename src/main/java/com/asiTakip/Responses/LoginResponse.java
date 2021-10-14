@@ -9,10 +9,17 @@ public class LoginResponse {
 	
 	
 	public LoginResponse(int statusCode, String statusMessage, String token) {
-		super();
+
 		this.statusCode = statusCode;
 		this.statusMessage = statusMessage;
 		this.token = token;
+	}
+	
+	public LoginResponse(int statusCode, String statusMessage) {
+
+		this.statusCode = statusCode;
+		this.statusMessage = statusMessage;
+
 	}
 	
 	public int getStatusCode() {

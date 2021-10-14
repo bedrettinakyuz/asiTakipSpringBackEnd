@@ -8,13 +8,15 @@ import org.springframework.security.authentication.AuthenticationCredentialsNotF
 import org.springframework.security.authentication.AuthenticationManager;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import com.asiTakip.Business.IUserManager;
 import com.asiTakip.Request.LoginRequest;
 import com.asiTakip.Responses.LoginResponse;
 import com.asiTakip.auth.TokenManager;
@@ -36,16 +38,20 @@ public class AuthController {
 	
 
 	@PostMapping
-	public ResponseEntity<LoginResponse> Login(@RequestBody LoginRequest loginRequest){
+	public  ResponseEntity<LoginResponse> Login(@RequestBody LoginRequest loginRequest){
 	
 		try {
 		
-			authenticationManager.authenticate(
-					new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
-			
-			//return ResponseEntity.ok(.status(200);
-			
+			if (!authenticationManager.authenticate(
+					new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword())).isAuthenticated() )
+			{
+				
+				return new ResponseEntity<LoginResponse>(new LoginResponse(401,"UNAUTHORIZED"),HttpStatus.UNAUTHORIZED) 	;	
+			}
+
 			return new ResponseEntity<LoginResponse>(new LoginResponse(200,"OK",tokenManager.generateToken(loginRequest.getUsername())),HttpStatus.OK) 	;	
+			
+			
 					
 		}
 

@@ -43,9 +43,10 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
+        .anonymous().principal("quest").authorities("GUEST_ROLE")
+        .and()
         .authorizeRequests().antMatchers("/login").permitAll()
         .antMatchers("/signup").permitAll()
-        .antMatchers("/user").permitAll()
         .anyRequest().authenticated()
         .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);

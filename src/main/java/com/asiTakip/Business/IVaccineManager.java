@@ -6,6 +6,6 @@ import com.asiTakip.models.*;
 public interface IVaccineManager {
 
 	String saveVaccine(Vaccine vaccine);
-	List<Vaccine> getVaccines();
+	Optional<List<Vaccine>> getVaccines(Integer id);
 	Optional<Vaccine> getVaccineById(Integer id);
 }

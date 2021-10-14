@@ -3,6 +3,7 @@ package com.asiTakip.models;
 import java.util.Date;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Getter;
@@ -23,6 +24,10 @@ public class Vaccine {
 	private String hospital;
 	private Date    toDoDate;
 	private boolean isDone;
+	
+	@Transient
+	public static final String SEQUENCE_NAME = "vac_sequence";
+	
 	
 	public Vaccine(Integer id, Integer ownerId, String name, String description, String hospital, Date toDoDate,
 			boolean isDone) {
