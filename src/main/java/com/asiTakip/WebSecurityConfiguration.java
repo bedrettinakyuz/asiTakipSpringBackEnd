@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.asiTakip.auth.JwtTokenFilter;
 import com.asiTakip.auth.UserDetailsService;
@@ -48,7 +49,12 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
         .authorizeRequests().antMatchers("/login").permitAll()
         .antMatchers("/signup").permitAll()
         .anyRequest().authenticated()
-        .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        .and()
+        .logout()
+        .logoutUrl("/logout")
+        .invalidateHttpSession(true)
+        ;
 		http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
       
 	}

@@ -25,7 +25,8 @@ System.out.print("Token Manager" + username);
 				.setIssuedAt(new Date(System.currentTimeMillis()))
 				.setExpiration(new Date(System.currentTimeMillis() + validity))
 				.signWith(key)
-				.compact();
+				.compact()
+				;
 		
 	}
 	public boolean tokenValidate(String token){
